@@ -1,4 +1,4 @@
-import women from "../assets/women.png"
+import women from "../assets/women.jpg"
 
 const Card1 = () => {
     const name = "Ava";

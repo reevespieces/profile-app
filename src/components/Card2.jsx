@@ -1,7 +1,7 @@
-import wman from "../assets/man.png"
+import wman from "../assets/man.jpg"
 
 const Card2 = () => {
-    const name = "Bob";
+    const name = "Dan";
     const title = "Developer";
 
     return (
