@@ -1,4 +1,6 @@
 import women from "../assets/women.jpg"
+import "../styles/cards.css"
+//if you want seperate css files, import it in the specific file. I say do seperate when I style it
 
 const Card1 = () => {
     const name = "Ava";

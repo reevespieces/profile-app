@@ -1,14 +1,12 @@
-import man from "../assets/man.jpg"
-import "../styles/cards.css"
+import women from "../assets/women.jpg"
+//if you want seperate css files, import it in the specific file. I say do seperate when I style it
 
-const Card2 = () => {
-    const name = "Dan";
-    const title = "Developer";
+const Card = ({name, title, image}) => {
 
     return (
         <div className="profile-card">
             <div className="top">
-                <img src={man} alt={name}/>
+                <img src={image} alt={name}/>
             </div>
             <div className="bottom">
                 <p>{name}</p>
@@ -19,4 +17,4 @@ const Card2 = () => {
 
 }
 
-export default Card2;
+export default Card;
