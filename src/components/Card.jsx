@@ -9,7 +9,7 @@ const Card = ({name, title, image}) => {
                 <img src={image} alt={name}/>
             </div>
             <div className="bottom">
-                <p>{name}</p>
+                <h3>{name}</h3>
                 <p>{title}</p>
             </div>
         </div>
