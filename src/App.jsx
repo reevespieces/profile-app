@@ -1,9 +1,9 @@
-import Card1 from './components/Card1'
+import Card from "./components/Card"
 import Navbar from './components/Navbar'
 import About from './components/About'
-import Card2 from './components/Card2'
-//import image ur;
-//import wrapper
+import Wrapper from './components/Wrapper'
+import women from "./assets/women.jpg"
+import man from "./assets/man.jpg"
 import './App.css'
 
 //uses class name container and section with id throughoyt idk hwich is better
@@ -14,17 +14,33 @@ import './App.css'
 
 
 function App() {
+  const profiles = [
+    {id: 0, name: "Ava", title: "UX Designer", image: women},
+    {id: 1, name: "Dan", title: "Designer", image: man},
+    {id: 2, name: "Albert", title: "Manager", image: man},
+  ];
+
   return (
     <>
     <Navbar />
-    <About />
-    <div className="Profile-card-container">
-       <Card1 />
-       <Card2 />
-    </div>
+    <Wrapper id="about">
+      <About />
+    </Wrapper>
+    <Wrapper id="profiles">
+        <div className="grid">
+          {profiles.map(profile => (
+            <Card 
+            key={profile.id} 
+            name={profile.name} 
+            title={profile.title} 
+            image={profile.image} 
+            />
+          ))}
+        </div>
+    </Wrapper>
     </>
     
-  )
+  );
 }
 
 export default App;
