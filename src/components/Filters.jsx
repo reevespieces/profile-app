@@ -1,3 +1,5 @@
+import "../styles/filters.css"
+
 const Filters = ({titles, title, name, handleChange, handleSearch, handleClick}) => {
     return (
         <div className="filter-container">

@@ -5,6 +5,8 @@ import Wrapper from './components/Wrapper'
 import Filters from './components/Filters'
 import women from "./assets/women.jpg"
 import man from "./assets/man.jpg"
+import josh from "./assets/josh.jpeg"
+import albert from "./assets/albert.webp"
 import './App.css'
 import { useState } from "react"
 
@@ -17,9 +19,10 @@ import { useState } from "react"
 
 function App() {
   const profiles = [
-    {id: 0, name: "Ava", title: "UX Designer", image: women},
-    {id: 1, name: "Dan", title: "Designer", image: man},
-    {id: 2, name: "Albert", title: "Manager", image: man},
+    {id: 0, name: "Ava", title: "Developer", image: women},
+    {id: 1, name: "Dan", title: "UX Designer", image: man},
+    {id: 2, name: "Albert", title: "Manager", image: albert},
+    {id: 3, name: "Josh", title: "Design", image: josh},
   ];
 
   const titles = [...new Set(profiles.map(profile => profile.title))];
@@ -66,7 +69,7 @@ function App() {
             />
           ))
         ): (
-            <p>No profiles selected</p>
+            <p>No profiles found</p>
         )}
         </div>
     </Wrapper>
