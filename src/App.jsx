@@ -43,9 +43,15 @@ function App() {
   const filteredProfiles = profiles.filter(profile => (
     (profile.title === title || !title)&&(profile.name.toLowerCase().includes(name.toLowerCase()))
   ))
+
+  const [styles, setStyles] = useState("light-mode");
+  const toggleStyles = () => {
+    setStyles(styles === "light-mode" ? "dark-mode" : "light-mode");
+  }
+
   return (
-    <>
-    <Navbar />
+    <div className={styles}>
+    <Navbar toggleStyles={toggleStyles} toggleText={styles}/>
     <Wrapper id="about">
       <About />
     </Wrapper>
@@ -73,7 +79,7 @@ function App() {
         )}
         </div>
     </Wrapper>
-    </>
+    </div>
     
   );
 }

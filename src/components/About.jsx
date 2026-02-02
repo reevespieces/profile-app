@@ -1,12 +1,14 @@
-import "../styles/about.css"
+import styles from "../styles/about.module.css";
 
 const About = () => {
-    return (
-        <div>
-            <h1> Profile App</h1>
-            <p>This is the about section.</p>
-        </div>
-    );
-}
+  return (
+    <section id="about" className={styles.about}>
+      <h1 className={styles.title}>Profile App</h1>
+      <p className={styles.text}>
+        This is the about section.
+      </p>
+    </section>
+  );
+};
 
 export default About;

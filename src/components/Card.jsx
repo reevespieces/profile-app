@@ -1,20 +1,18 @@
-import "../styles/cards.css"
-//if you want seperate css files, import it in the specific file. I say do seperate when I style it
+import styles from "../styles/cards.module.css";
 
-const Card = ({name, title, image}) => {
+const Card = ({ name, title, image }) => {
+  return (
+    <div className={styles.card}>
+      <div className={styles.top}>
+        <img src={image} alt={name} />
+      </div>
 
-    return (
-        <div className="profile-card">
-            <div className="top">
-                <img src={image} alt={name}/>
-            </div>
-            <div className="bottom">
-                <h3>{name}</h3>
-                <p>{title}</p>
-            </div>
-        </div>
-    );
-
-}
+      <div className={styles.bottom}>
+        <h3>{name}</h3>
+        <p>{title}</p>
+      </div>
+    </div>
+  );
+};
 
 export default Card;
