@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import About from './components/About'
 import Wrapper from './components/Wrapper'
 import Filters from './components/Filters'
+import AddProfileForm from "./components/AddProfileForm"
 import women from "./assets/women.jpg"
 import man from "./assets/man.jpg"
 import josh from "./assets/josh.jpeg"
@@ -18,12 +19,12 @@ import { useState } from "react"
 
 
 function App() {
-  const profiles = [
-    {id: 0, name: "Ava", title: "Developer", image: women},
-    {id: 1, name: "Dan", title: "UX Designer", image: man},
-    {id: 2, name: "Albert", title: "Manager", image: albert},
-    {id: 3, name: "Josh", title: "Design", image: josh},
-  ];
+  const [profiles, setProfiles] = useState([
+    {id: 0, name: "Ava", title: "Developer", email:"", bio:"", image: women},
+    {id: 1, name: "Dan", title: "UX Designer", email:"", bio:"", image: man},
+    {id: 2, name: "Albert", title: "Manager", email:"", bio:"", image: albert},
+    {id: 3, name: "Josh", title: "Design", email:"", bio:"", image: josh},
+  ]);
 
   const titles = [...new Set(profiles.map(profile => profile.title))];
 
@@ -39,7 +40,9 @@ function App() {
     setTitle("")
     setName("")
   };
-
+const updateProfiles = (profile) => {
+  setProfiles(pre => ([...pre, profile]))
+}
   const filteredProfiles = profiles.filter(profile => (
     (profile.title === title || !title)&&(profile.name.toLowerCase().includes(name.toLowerCase()))
   ))
@@ -54,6 +57,9 @@ function App() {
     <Navbar toggleStyles={toggleStyles} toggleText={styles}/>
     <Wrapper id="about">
       <About />
+    </Wrapper>
+    <Wrapper id="add-profile">
+      <AddProfileForm onAddProfile={updateProfiles}/>
     </Wrapper>
     <Wrapper id="profiles">
       <Filters 
