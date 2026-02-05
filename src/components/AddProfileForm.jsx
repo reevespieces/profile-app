@@ -1,4 +1,5 @@
 import { useState } from "react"
+import styles from "../styles/profileform.module.css"
 
 const stripTags = (s) => String(s ?? "").replace(/<\/?[^>]+>/g, "");
 const trimCollapse = (s) => String(s ?? "").trim().replace(/\s+/g, " ");
@@ -65,24 +66,69 @@ const AddProfileForm = ({ onAddProfile }) => {
     const disabled = !stripTags(trimCollapse(name)) || !stripTags(trimCollapse(title)) || !trimCollapse(bio) || !stripTags(trimCollapse(email)) || isSubmitting || error !=="";
 
     return (
-        <form onSubmit={handleSubmit} className="">
+        <form onSubmit={handleSubmit} className={styles.form}>
 
-            <label htmlFor="name">Name</label>
-            <input id="name" name="name" required value={name} onChange={handleChange} />
-            <label htmlFor="title">Title</label>
-            <input id="title" name="title" required value={title} onChange={handleChange} />
-            <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" required value={email} onChange={handleChange} />
-            <label htmlFor="bio">Add description</label>
-            <textarea id="bio" name="bio" required value={bio} maxLength={200} onChange={handleChange} />
-            <label htmlFor="image">Upload an image</label>
-            <input id="image" name="image" type="file" accept="image/*" onChange={handleChange} />
+  <label htmlFor="name" className={styles.label}>Name</label>
+  <input
+    id="name"
+    name="name"
+    required
+    value={name}
+    onChange={handleChange}
+    className={styles.input}
+  />
 
-            <button disabled={disabled}>Submit</button>
-            {error && <p>{error}</p>}
-            {success && <p>{success}</p>}
+  <label htmlFor="title" className={styles.label}>Title</label>
+  <input
+    id="title"
+    name="title"
+    required
+    value={title}
+    onChange={handleChange}
+    className={styles.input}
+  />
 
-        </form>
+  <label htmlFor="email" className={styles.label}>Email</label>
+  <input
+    id="email"
+    name="email"
+    type="email"
+    required
+    value={email}
+    onChange={handleChange}
+    className={styles.input}
+  />
+
+  <label htmlFor="bio" className={styles.label}>Add description</label>
+  <textarea
+    id="bio"
+    name="bio"
+    required
+    value={bio}
+    maxLength={200}
+    onChange={handleChange}
+    className={styles.textarea}
+  />
+
+  <label htmlFor="image" className={styles.label}>Upload an image</label>
+  <input
+    id="image"
+    name="image"
+    type="file"
+    accept="image/*"
+    onChange={handleChange}
+    className={styles.fileInput}
+  />
+
+  <button disabled={disabled} className={styles.button}>
+    Submit
+  </button>
+
+  {error && <p className={styles.error}>{error}</p>}
+  {success && <p className={styles.success}>{success}</p>}
+
+</form>
+
     )
 
 }
