@@ -5,7 +5,7 @@ const About = () => {
     <section id="about" className={styles.about}>
       <h1 className={styles.title}>Profile App</h1>
       <p className={styles.text}>
-        This is the about section.
+        This is the about section! A bunch of profiles are here!
       </p>
     </section>
   );
