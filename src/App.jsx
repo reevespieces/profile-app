@@ -4,12 +4,14 @@ import About from './components/About'
 import Wrapper from './components/Wrapper'
 import Filters from './components/Filters'
 import AddProfileForm from "./components/AddProfileForm"
+import FetchedProfiles from "./components/FetchedProfiles"
 import women from "./assets/women.jpg"
 import man from "./assets/man.jpg"
 import josh from "./assets/josh.jpeg"
 import albert from "./assets/albert.webp"
 import './App.css'
 import { useState } from "react"
+
 
 //uses class name container and section with id throughoyt idk hwich is better
 //she put content of each section in two containers. The section is the one to define the padding and space, while container is maximum width of the content
@@ -57,6 +59,9 @@ const updateProfiles = (profile) => {
     <Navbar toggleStyles={toggleStyles} toggleText={styles}/>
     <Wrapper id="about">
       <About />
+    </Wrapper>
+    <Wrapper>
+      <FetchedProfiles/>
     </Wrapper>
     <Wrapper id="add-profile">
       <AddProfileForm onAddProfile={updateProfiles}/>
