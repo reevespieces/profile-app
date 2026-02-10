@@ -7,3 +7,10 @@
 .title {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
+}
+
+.text {
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
