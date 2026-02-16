@@ -10,4 +10,4 @@ const FetchedProfilePage = () => {
  );
 }
 
-export default FetchedProfilePage;
+export default Fetche
