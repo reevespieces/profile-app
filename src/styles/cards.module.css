@@ -42,4 +42,7 @@
   color: #777;
 }
 
-.c
+.card {
+  background-color: var(--card-bg);
+  color: var(--card-text);
+}

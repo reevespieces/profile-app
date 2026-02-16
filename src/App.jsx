@@ -1,16 +1,15 @@
-import Card from "./components/Card"
 import Navbar from './components/Navbar'
-import About from './components/About'
-import Wrapper from './components/Wrapper'
-import Filters from './components/Filters'
-import AddProfileForm from "./components/AddProfileForm"
-import FetchedProfiles from "./components/FetchedProfiles"
 import women from "./assets/women.jpg"
 import man from "./assets/man.jpg"
 import josh from "./assets/josh.jpeg"
 import albert from "./assets/albert.webp"
 import './App.css'
 import { useState } from "react"
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage'
+import AboutPage from './pages/AboutPage'
+import FetchedProfilePage from './pages/FetchedProfilePage'
+import AddProfilePage from './pages/AddProfilePage'
 
 
 //uses class name container and section with id throughoyt idk hwich is better
@@ -22,10 +21,10 @@ import { useState } from "react"
 
 function App() {
   const [profiles, setProfiles] = useState([
-    {id: 0, name: "Ava", title: "Developer", email:"", bio:"", image: women},
-    {id: 1, name: "Dan", title: "UX Designer", email:"", bio:"", image: man},
-    {id: 2, name: "Albert", title: "Manager", email:"", bio:"", image: albert},
-    {id: 3, name: "Josh", title: "Design", email:"", bio:"", image: josh},
+    { id: 0, name: "Ava", title: "Developer", email: "", bio: "", image: women },
+    { id: 1, name: "Dan", title: "UX Designer", email: "", bio: "", image: man },
+    { id: 2, name: "Albert", title: "Manager", email: "", bio: "", image: albert },
+    { id: 3, name: "Josh", title: "Design", email: "", bio: "", image: josh },
   ]);
 
   const titles = [...new Set(profiles.map(profile => profile.title))];
@@ -42,11 +41,11 @@ function App() {
     setTitle("")
     setName("")
   };
-const updateProfiles = (profile) => {
-  setProfiles(pre => ([...pre, profile]))
-}
+  const updateProfiles = (profile) => {
+    setProfiles(pre => ([...pre, profile]))
+  }
   const filteredProfiles = profiles.filter(profile => (
-    (profile.title === title || !title)&&(profile.name.toLowerCase().includes(name.toLowerCase()))
+    (profile.title === title || !title) && (profile.name.toLowerCase().includes(name.toLowerCase()))
   ))
 
   const [styles, setStyles] = useState("light-mode");
@@ -55,43 +54,18 @@ const updateProfiles = (profile) => {
   }
 
   return (
-    <div className={styles}>
-    <Navbar toggleStyles={toggleStyles} toggleText={styles}/>
-    <Wrapper id="about">
-      <About />
-    </Wrapper>
-    <Wrapper>
-      <FetchedProfiles/>
-    </Wrapper>
-    <Wrapper id="add-profile">
-      <AddProfileForm onAddProfile={updateProfiles}/>
-    </Wrapper>
-    <Wrapper id="profiles">
-      <Filters 
-      titles={titles}
-      title={title}
-      name={name}
-      handleChange={handleChangeTitle}
-      handleSearch={handleSearch}
-      handleClick={handleClear}
-      />
-        <div className="grid">
-          {filteredProfiles.length > 0 ? (
-            filteredProfiles.map((profile) => (
-            <Card 
-            key={profile.id} 
-            name={profile.name} 
-            title={profile.title} 
-            image={profile.image}
-            />
-          ))
-        ): (
-            <p>No profiles found</p>
-        )}
-        </div>
-    </Wrapper>
-    </div>
-    
+    <HashRouter>
+      <div className={styles}>
+        <Navbar toggleStyles={toggleStyles} toggleText={styles} />
+        <Routes>
+          <Route path ="/" element={<HomePage profiles={profiles} handleChangeTitle={handleChangeTitle} handleSearch={handleSearch} handleClear={handleClear} title={title} name={name}/>} />
+          <Route path = "/about" element={<AboutPage />} />
+          <Route path = "/fetched-profiles" element={<FetchedProfilePage />}/>
+          <Route path = "/add-profile" element={<AddProfilePage />} />
+        </Routes>
+      </div>
+    </HashRouter>
+
   );
 }
 
