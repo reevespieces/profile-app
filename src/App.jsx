@@ -10,13 +10,8 @@ import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import FetchedProfilePage from './pages/FetchedProfilePage'
 import AddProfilePage from './pages/AddProfilePage'
-
-
-//uses class name container and section with id throughoyt idk hwich is better
-//she put content of each section in two containers. The section is the one to define the padding and space, while container is maximum width of the content
-//simplify this with making a wrapper component
-//import card and chnage card 1 and 2 to just be one card
-
+import ProfileDetailPage from './pages/ProfileDetailPage'
+import ProfileLayoutPage from './pages/ProfileLayoutPage'
 
 
 function App() {
@@ -26,8 +21,6 @@ function App() {
     { id: 2, name: "Albert", title: "Manager", email: "", bio: "", image: albert },
     { id: 3, name: "Josh", title: "Design", email: "", bio: "", image: josh },
   ]);
-
-  const titles = [...new Set(profiles.map(profile => profile.title))];
 
   const [title, setTitle] = useState("")
   const [name, setName] = useState("")
@@ -43,15 +36,11 @@ function App() {
   };
   const updateProfiles = (profile) => {
     setProfiles(pre => ([...pre, profile]))
-  }
-  const filteredProfiles = profiles.filter(profile => (
-    (profile.title === title || !title) && (profile.name.toLowerCase().includes(name.toLowerCase()))
-  ))
-
+  };
   const [styles, setStyles] = useState("light-mode");
   const toggleStyles = () => {
     setStyles(styles === "light-mode" ? "dark-mode" : "light-mode");
-  }
+  };
 
   return (
     <HashRouter>
@@ -61,7 +50,10 @@ function App() {
           <Route path ="/" element={<HomePage profiles={profiles} handleChangeTitle={handleChangeTitle} handleSearch={handleSearch} handleClear={handleClear} title={title} name={name}/>} />
           <Route path = "/about" element={<AboutPage />} />
           <Route path = "/fetched-profiles" element={<FetchedProfilePage />}/>
-          <Route path = "/add-profile" element={<AddProfilePage />} />
+          <Route path = "/fetched-profiles/profile/" element={<ProfileLayoutPage />}>
+            <Route path = ":id" element={<ProfileDetailPage />} />
+          </Route>
+          <Route path = "/add-profile" element={<AddProfilePage updateProfiles={updateProfiles} />} />
         </Routes>
       </div>
     </HashRouter>

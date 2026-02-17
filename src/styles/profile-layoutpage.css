@@ -1,0 +1,15 @@
+.back-button {
+  padding: 10px 24px;
+  border: 2px solid rgb(147, 56, 40);
+  color: white;
+  background-color: tomato;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.back-button:hover {
+  background: white;
+  color: rgb(213, 82, 59);
+}
