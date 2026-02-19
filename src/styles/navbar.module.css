@@ -40,7 +40,7 @@
   background-color: #f7a0a0;
 }
 
-.toggleButton {
+.themeToggle {
   background: white;
   color: tomato;
   border: none;
@@ -50,6 +50,6 @@
   font-weight: 600;
 }
 
-.toggleButton:hover {
+.themeToggle:hover {
   background: #ffe5e5;
 }
