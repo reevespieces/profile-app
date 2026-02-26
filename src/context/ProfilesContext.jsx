@@ -4,6 +4,8 @@ import man from "../assets/man.jpg";
 import josh from "../assets/josh.jpeg";
 import albert from "../assets/albert.webp";
 
+//not fully functioing or implemented, idea is in place though
+
 const ProfilesContext = createContext();
 
 export const ProfilesProvider = ({ children }) => {

@@ -136,8 +136,4 @@ const AddProfileForm = ({ onAddProfile }) => {
 
         </form>
 
-    )
-
-}
-
-export default AddProfileForm;
+    
