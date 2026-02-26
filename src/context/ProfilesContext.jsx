@@ -15,4 +15,14 @@ export const ProfilesProvider = ({ children }) => {
   ]);
 
   const updateProfiles = (profile) => {
-    setProfiles(prev => [...prev, profi
+    setProfiles(prev => [...prev, profile]);
+  };
+
+  return (
+    <ProfilesContext.Provider value={{ profiles, updateProfiles }}>
+      {children}
+    </ProfilesContext.Provider>
+  );
+};
+
+export default ProfilesContext;
