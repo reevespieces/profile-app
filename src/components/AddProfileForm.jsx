@@ -1,46 +1,62 @@
-import { useState } from "react"
+import { useReducer, useRef, useLayoutEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import styles from "../styles/profileform.module.css"
+import formReducer from "../reducers/formReducer";
 
 
 const stripTags = (s) => String(s ?? "").replace(/<\/?[^>]+>/g, "");
 const trimCollapse = (s) => String(s ?? "").trim().replace(/\s+/g, " ");
 
+const initialState = {
+    values: {
+        name: "",
+        title: "",
+        email: "",
+        bio: "",
+        image: null,
+    },
+    error: "",
+    isSubmitting: false,
+    success: "",
+};
+
 const AddProfileForm = ({ onAddProfile }) => {
+    const [state, dispatch] = useReducer(formReducer, initialState);
 
-    const [values, setValues] = useState({ name: "", title: "", email: "", bio: "", image: null })
-    const [error, setError] = useState("")
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [success, setSuccess] = useState(false)
+    const { values, error, isSubmitting, success } = state;
 
-    const { name, title, email, bio, image } = values
+    const { name, title, email, bio, image } = values;
     const navigate = useNavigate();
 
+    const fieldRef = useRef(null);
+    useLayoutEffect(() => {
+        fieldRef.current?.focus();
+    }, []);
+
     const handleChange = (event) => {
-        const { name, value } = event.target
+        const { name, value } = event.target;
         if (name === "image") {
             const file = event.target.files[0]
-            if (file && file.size < 1024 * 1024) {
-                setValues(pre => ({ ...pre, image: file }))
-                setError("")
-            } else {
-                setError("Image should be less than 1 MB")
-                setValues(pre => ({ ...pre, image: null }))
-            }
+            dispatch({ type: "SET_IMG", payload: file });
         } else {
-            setValues(pre => ({ ...pre, [name]: value }))
+            dispatch({ type: "SET_VALUES", payload: { name, value } });
         }
-    }
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setIsSubmitting(true)
+        dispatch({ type: "START_SUBMITTING" });
         try {
-            if (!stripTags(trimCollapse(name)) || !stripTags(trimCollapse(title)) || !trimCollapse(bio) || !stripTags(trimCollapse(email))) {
-                setError("Please fill in name, title, email, and description")
+            if (
+                !stripTags(trimCollapse(name)) ||
+                !stripTags(trimCollapse(title)) ||
+                !trimCollapse(bio) ||
+                !stripTags(trimCollapse(email))
+            ) {
+                dispatch("EMPTY_FIELD");
                 return;
-            }
+            };
             const cleanedData = {
                 id: Date.now(),
                 name: stripTags(trimCollapse(name)),
@@ -51,30 +67,32 @@ const AddProfileForm = ({ onAddProfile }) => {
             }
             //submit the data
             onAddProfile(cleanedData);
-
-            setValues({ name: "", title: "", email: "", bio: "", image: null })
-            setError("")
-            setSuccess("Form is submitted successfully")
+            dispatch({type: "ON_SUBMIT"});
             setTimeout(() => {
-                setSuccess("")
-                navigate("/")
+                dispatch({type: "SUBMIT_SUCCESS"});
+                navigate("/");
             }, 1000);
-
         } catch (error) {
-            setError(error.message)
+            dispatch({type: "SYSTEM_ERROR", payload: error.message});
         } finally {
-            setIsSubmitting(false)
+            dispatch({type: "AFTER_SUBMIT"})
         }
-
     };
 
-    const disabled = !stripTags(trimCollapse(name)) || !stripTags(trimCollapse(title)) || !trimCollapse(bio) || !stripTags(trimCollapse(email)) || isSubmitting || error !== "";
+    const disabled = 
+        !stripTags(trimCollapse(name)) || 
+        !stripTags(trimCollapse(title)) || 
+        !trimCollapse(bio) || 
+        !stripTags(trimCollapse(email)) || 
+        isSubmitting || 
+        error !== "";
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
 
             <label htmlFor="name" className={styles.label}>Name</label>
             <input
+            ref={fieldRef}
                 id="name"
                 name="name"
                 type="text"
@@ -136,4 +154,8 @@ const AddProfileForm = ({ onAddProfile }) => {
 
         </form>
 
-    
+    );
+
+};
+
+export default AddProfileForm;

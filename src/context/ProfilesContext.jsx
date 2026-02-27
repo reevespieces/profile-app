@@ -16,15 +16,4 @@ export const ProfilesProvider = ({ children }) => {
     { id: 3, name: "Josh", title: "Design", email: "", bio: "", image: josh },
   ]);
 
-  const updateProfiles = (profile) => {
-    setProfiles(prev => [...prev, profile]);
-  };
-
-  return (
-    <ProfilesContext.Provider value={{ profiles, updateProfiles }}>
-      {children}
-    </ProfilesContext.Provider>
-  );
-};
-
-export default ProfilesContext;
+  const updateP
